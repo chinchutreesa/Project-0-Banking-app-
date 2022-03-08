@@ -4,6 +4,8 @@ public class AdminClass {
 
 	public static void main(String[] args) {
 		
+		ReadData rd2=new ReadData();
+		rd2.ReadFromFile();
 	}
 	
 	public void DisplayMethods() {

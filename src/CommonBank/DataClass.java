@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class DataClass implements Serializable {
 	
 	String fName;
-	String address;
 	String uName,password;
+	String address;
 	String emailId;
 	long phNo;
 	boolean input;
@@ -41,8 +41,8 @@ public class DataClass implements Serializable {
      }
     @Override
     public String toString() {
-    	return "DataClass{"+"fName='"+fName+'\''+",uName='"+uName+'\''+",password='"+password+'\''+",emailId='"+emailId+'\''+
-    			",phNo='"+phNo+'\''+",input='"+input+'\''+",joinName='"+joinName+'\''+",joint='"+joint+'\''+"}\n";
+    	return "{"+"fName='"+fName+'\''+",uName='"+uName+'\''+",password='"+password+'\''+'\''+",address='"+address+'\''+",emailId='"+emailId+'\''+
+    			",phNo='"+phNo+'\''+",input='"+input+'\''+",joinName='"+joinName+'\''+",joint='"+joint+"'}";
     }
 
 }

@@ -1,12 +1,13 @@
 package CommonBank;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class LoginBank {
 
 	static Scanner s=new Scanner(System.in); //
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		
 		
 		System.out.println("\n*************************");
@@ -31,17 +32,18 @@ public class LoginBank {
 		
 	}
 	
-	public void loginUser() {
-		String usr="myuser";
-		String pwd="mypwd";
+	public void loginUser() throws ClassNotFoundException, IOException {
 		System.out.println("Enter your User Name");
 		String UserName=s.nextLine();
 		System.out.println("Enter your Password");
 		String Password=s.nextLine();
-		if(UserName.equals(usr)&&Password.equals(pwd)) {
+		ReadData rd=new ReadData();
+		String pwd=rd.fetchSpecificDetails(UserName);
+		System.out.println(pwd);
+		if(pwd.equals("'"+Password+"''")) {
 			Customer c1=new Customer();
-			c1.balEnq();
-		}else {System.out.println("try again");
+			c1.cust(UserName);
+		}else {System.out.println("invalid user");
 		}
 	}
 	

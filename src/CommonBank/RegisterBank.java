@@ -1,6 +1,7 @@
 package CommonBank;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class RegisterBank {
@@ -11,12 +12,12 @@ public class RegisterBank {
 	String emailId;
 	long phNo;
 	boolean input;
-	String joinName,joint,rel;
+	String joinName,joint;
 	
 	static Scanner s1=new Scanner(System.in);
 	
 	
-	public void regUser()
+	public void regUser() throws ClassNotFoundException, IOException
 	{
 
 			//declare boolean values
@@ -47,13 +48,8 @@ public class RegisterBank {
 				 jointDetails();
 			}
 			else {
-				DataClass dc=new DataClass();
-				dc.fName=fName;
-				dc.address=address;
-				dc.emailId=emailId;
-				dc.uName=uName;
-				dc.password=password;
-				dc.phNo=phNo;
+				DataClass dc=new DataClass(fName,uName,password,address,emailId,phNo,input,joinName,joint);
+				
 				
 				WriteData wc=new WriteData();
 				wc.WriteIntoFile(dc);
@@ -73,16 +69,21 @@ public class RegisterBank {
 			
 			//joint account details
 	
-			public void  jointDetails() {      
+			public void  jointDetails() throws ClassNotFoundException, IOException {      
 				System.out.println("Enter the name of joinee- ,Relationship- ");
-					joinName=s1.nextLine();
-					
+				joinName=s1.nextLine();
+				joint="Relationshipe";
 //				System.out.println("Relationship to the joinee");
-					rel=s1.nextLine();
+					
 //				System.out.println("Enter Phone Number");
 //				long joinPhno=s1.nextLong();
-				
-//				return joinName;
+				DataClass dc=new DataClass(fName,uName,password,address,emailId,phNo,input,joinName,joint);
+
+					
+				WriteData wc=new WriteData();
+				wc.WriteIntoFile(dc);
+					
+				System.out.println("Account Created Successfully!!!");
 			}
 			
 			
