@@ -5,23 +5,21 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RegisterBank {
-	
+	//Only for registering new user
 	String fName;
-	String address;
 	String uName,password;
+	String address;
 	String emailId;
 	long phNo;
-	boolean input;
-	String joinName,joint;
+	String jointName="Nil",jointRel="Nil";
+	String userType;
+	String approval1="No",approval2="No";//1st Approval level=Employee, 2nd approval level Admin
+	int totalBalance=0,checkinBalance=0,savingsBalance=0;
 	
 	static Scanner s1=new Scanner(System.in);
 	
-	
-	public void regUser() throws ClassNotFoundException, IOException
-	{
+	public void regUser() throws ClassNotFoundException, IOException {
 
-			//declare boolean values
-			//boolean input;
 		System.out.println("Enter your full Name");
 		fName=s1.nextLine();
 		
@@ -39,65 +37,45 @@ public class RegisterBank {
 			
 		System.out.println("Enter your Phone Number");
 		phNo=s1.nextLong();
+		
+		System.out.println("Enter your User Type: 1. CUSTOMER 2. EMPLOYEE 3. ADMIN ");
+		int user=s1.nextInt();
+		if(user==1) {userType="CUSTOMER";} else if(user==2) {userType="EMPLOYEE";} else if(user==3) {userType="ADMIN";} else {userType="NOT DEFINED";}
+		
+		//Not working code
+//		System.out.println("Would you like to make it a Joint Account?: Type 'Yes' or 'No'");
+//			
+//		int input=s1.nextLine()=="Yes"? 1 :2;
+//		switch(input) {
+//			case 1:
+//				System.out.println("Enter the name of 'Joinee-Relationship' ");
+//				String theInput=s1.nextLine();	
+//				jointName=theInput.split("-")[0];
+//				jointRel=theInput.split("-")[1];
+//			
+//			case 2:
+//				jointName="Nil";
+//				jointRel="Nil";
+//			
+//		}
+		
+		System.out.println("Are you sure want to Submit: \\\\n 1.YES \\\\n 2. NO");
+		int submit=s1.nextInt();
+		if(submit==1) {
+			DataClass dc=new DataClass(fName,uName,password,address,emailId,phNo,jointName,jointRel,userType,approval1,approval2,totalBalance,checkinBalance,savingsBalance);
+		
+			WriteData wc=new WriteData();
+			wc.WriteIntoFile(dc);
 			
-		System.out.println("Would you like to make it a Joint Account?: Type true or false");
+			FirstPage fp=new FirstPage();
+			fp.mainCaller();
+		
+		}else {
+			FirstPage fp=new FirstPage();
+			fp.mainCaller();
+		}
 			
-			boolean input=s1.nextBoolean();
-			if(input) {
-				
-				 jointDetails();
-			}
-			else {
-				DataClass dc=new DataClass(fName,uName,password,address,emailId,phNo,input,joinName,joint);
-				
-				
-				WriteData wc=new WriteData();
-				wc.WriteIntoFile(dc);
-				
-				System.out.println("Account Created Successfully!!!");
-			}
+	}
 			
-			
-			//check the boolean value
-			//yes-go to jointDetails()
-			//no-go to login page  or "submitted"
-			
-			
-				
-			}
-			
-			
-			//joint account details
-	
-			public void  jointDetails() throws ClassNotFoundException, IOException {      
-				System.out.println("Enter the name of joinee- ,Relationship- ");
-				joinName=s1.nextLine();
-				joint="Relationshipe";
-//				System.out.println("Relationship to the joinee");
-					
-//				System.out.println("Enter Phone Number");
-//				long joinPhno=s1.nextLong();
-				DataClass dc=new DataClass(fName,uName,password,address,emailId,phNo,input,joinName,joint);
-
-					
-				WriteData wc=new WriteData();
-				wc.WriteIntoFile(dc);
-					
-				System.out.println("Account Created Successfully!!!");
-			}
-			
-			
-
-
-	
-
-
+		
     }
-	
-
-// check the boolean
-//System.out.println("Are you sure want to Submit: YES / NO")
-//yes- login page
-//no-register page
-
-

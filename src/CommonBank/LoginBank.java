@@ -1,50 +1,46 @@
 package CommonBank;
 
+
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.util.Scanner;
 
 public class LoginBank {
-
-	static Scanner s=new Scanner(System.in); //
+	//Only possible way to reach is from FirstPage.java (only redirection)
+	static Scanner s=new Scanner(System.in);
 	
-	public static void main(String[] args) throws ClassNotFoundException, IOException {
-		
-		
-		System.out.println("\n*************************");
-		System.out.println("New User:Type 'R'\n"+"Existing User:Type 'L'");
-		String loginCommand=s.nextLine(); //read user input
-		
-		if(loginCommand.equals("L")) {
-			
-			LoginBank l=new LoginBank();
-			l.loginUser(); 				//login inputs
-		}
-		else if(loginCommand.equals("R")){
-			
-			RegisterBank r=new RegisterBank();
-			r.regUser();				//registration inputs
-		}
-		else {
-			
-			System.out.println("Invalid Input");
-			
-		}
-		
-	}
-	
-	public void loginUser() throws ClassNotFoundException, IOException {
+	public void loginUser() throws ClassNotFoundException, IOException, InvalidClassException {
+		System.out.println("_______Login to Account_______");
 		System.out.println("Enter your User Name");
 		String UserName=s.nextLine();
 		System.out.println("Enter your Password");
 		String Password=s.nextLine();
 		ReadData rd=new ReadData();
-		String pwd=rd.fetchSpecificDetails(UserName);
-		System.out.println(pwd);
-		if(pwd.equals("'"+Password+"''")) {
-			Customer c1=new Customer();
-			c1.cust(UserName);
-		}else {System.out.println("invalid user");
+		String pwd=rd.fetchPasswordOfUser(UserName);
+		
+		if(pwd.equals(Password)) {
+			String userType=rd.detectUserType(UserName);
+			switch (userType) {
+			case "CUSTOMER":
+				Customer c1=new Customer();
+				c1.customerDashboard(UserName,userType);
+			case "EMPLOYEE":
+				EmployeeClass emp=new EmployeeClass();
+				emp.employeeDashboard(UserName, userType);
+			case "ADMIN":
+				AdminClass adm=new AdminClass();
+				adm.adminDashboard(UserName, userType);
+			}	
+		}else {
+			System.out.println("Invalid User/ Wrong credential");
 		}
+	}
+	
+	public void registerUser() throws ClassNotFoundException, IOException {
+		//registration inputs
+		System.out.println("__________Enter the new user details__________");
+		RegisterBank r=new RegisterBank();
+		r.regUser();				
 	}
 	
 
